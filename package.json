@@ -1,0 +1,35 @@
+{
+  "name": "multi-carousel",
+  "description": "Lit-Element webcomponent multi-carousel",
+  "version": "1.0.0",
+  "main": "multi-carousel.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/user/multi-carousel"
+  },
+  "author": "user",
+  "license": "Apache 2.0",
+  "keywords": [
+    "webcomponent",
+    "lit-element"
+  ],
+  "bugs": {
+    "url": "https://github.com/user/multi-carousel/issues"
+  },
+  "homepage": "https://github.com/user/multi-carousel",
+  "dependencies": {
+    "lit-element": "^2.1.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.2.2",
+    "@babel/plugin-proposal-class-properties": "^7.2.3",
+    "@babel/plugin-proposal-decorators": "^7.2.3",
+    "@webcomponents/webcomponentsjs": "^2.2.4",
+    "rollup": "^1.1.0",
+    "rollup-plugin-babel": "^4.3.0",
+    "rollup-plugin-node-resolve": "^4.0.0"
+  },
+  "scripts": {
+    "build": "rm -rf build && mkdir build && rollup -c"
+  }
+}

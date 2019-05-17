@@ -18,16 +18,28 @@ class MultiCarousel extends LitElement {
   static get properties() {
     return {
       numslides: { type: Number },
-      arrayContent: { type: Array }
+      arrayContent: { type: Array },
+      master: { type: Boolean },
+      masterId: { type: String, attribute: 'master-id' },
+      slideChecked: { type: Number }
     };
   }
 
   constructor() {
     super();
+    this.master = false;
+    this.masterId = '';
   }
 
   connectedCallback() {
     super.connectedCallback();
+
+    if (this.masterId !== '') {
+      console.log('escuchando evento de ' + this.masterId);
+      console.log(document.querySelector('#'+this.masterId));
+      document.addEventListener('multicarouselnextslide', this.nextslide.bind(this));
+    }
+
     this.arrayContent = this.children;
     this.numslides = this.arrayContent.length + 1;
     this.opArr = Array.apply(null, {length: this.numslides}).map(Number.call, Number);
@@ -58,8 +70,11 @@ class MultiCarousel extends LitElement {
       transform: rotate(225deg);
     }`;
     this.htmlInputs = `${this.opArr.map(val => html`<input type="radio" name="slides" id="slides_${val}"/>`)}`;
+  }
 
-
+  disconnectedCallback() {
+    super.disconnectedCallback();
+    document.removeEventListener('multicarouselnextslide', this.nextSlide.bind(this));
   }
 
   static get styles() {
@@ -327,6 +342,30 @@ class MultiCarousel extends LitElement {
     `;
   }
 
+  gotonav(ev) {
+    let slideChecked = ev.target.getAttribute('for').split('_')[1];
+    if (this.master) {
+      let event = new CustomEvent('multicarouselnextslide', {
+        detail: {
+          masterid: this.id,
+          slide: slideChecked
+        }
+      });
+      console.log('dispatch event', this.id, event);
+      document.dispatchEvent(event);
+    }
+  }
+
+  nextslide(ev) {
+    let masterId = ev.detail.masterid;
+    console.log(masterId);
+    if (masterId === this.masterId) {
+      let slide = ev.detail.slide;
+      console.log('recogido event');
+      this.shadowRoot.querySelector('label[for="slides_'+slide+'"]').click();
+    }
+  }
+
   render() {
     return html`
       <style>
@@ -350,13 +389,13 @@ class MultiCarousel extends LitElement {
           ${this.opArr.map(val => html`<li>${this.arrayContent[val - 1]}</li>` )}
         </ul>
         <div class="arrows">
-          ${this.opArr.map(val => html`<label for="slides_${val}"></label>` )}
-          <label class="goto-first" for="slides_1"></label>
-          <label class="goto-last" for="slides_${this.numslides}"></label>
+          ${this.opArr.map(val => html`<label for="slides_${val}" @click="${this.gotonav}"></label>` )}
+          <label class="goto-first" for="slides_1" @click="${this.gotonav}"></label>
+          <label class="goto-last" for="slides_${this.numslides-1}" @click="${this.gotonav}"></label>
         </div>
         <div class="navigation"> 
           <div>
-            ${this.opArr.map(val => html`<label for="slides_${val}"></label>` )}
+            ${this.opArr.map(val => html`<label for="slides_${val}" @click="${this.gotonav}"></label>` )}
           </div>
         </div>
       </div>

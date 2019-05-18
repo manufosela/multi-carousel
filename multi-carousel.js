@@ -35,8 +35,6 @@ class MultiCarousel extends LitElement {
     super.connectedCallback();
 
     if (this.masterId !== '') {
-      console.log('escuchando evento de ' + this.masterId);
-      console.log(document.querySelector('#'+this.masterId));
       document.addEventListener('multicarouselnextslide', this.nextslide.bind(this));
     }
 
@@ -80,12 +78,17 @@ class MultiCarousel extends LitElement {
   static get styles() {
     return css`
       :host {
+        --main-bg-color: #FFF;
+        --main-color: #000;
+        --slides-bg-color: #FFF;
+        --hover-arrow-color: #FF0;
+
         height: 100%;
         overflow-x: hidden;
         text-align: center;
         font: 400 100% 'Raleway', 'Lato';
-        background-color: #282828;
-        color: #CCC;
+        background-color: var(--bg-color);
+        color: var(--main-color);
         padding-bottom: 60px;
       }
       .csslider {
@@ -109,8 +112,8 @@ class MultiCarousel extends LitElement {
         z-index: 1;
         font-size: 0;
         line-height: 0;
-        background-color: #3A3A3A;
-        border: 10px solid #3A3A3A;
+        background-color: var(--slides-bg-color);
+        border: 10px solid var(--slides-bg-color);
         margin: 0 auto;
         padding: 0;
         overflow: hidden;
@@ -217,7 +220,7 @@ class MultiCarousel extends LitElement {
         position: absolute;
         top: -50%;
         padding: 13px;
-        box-shadow: inset 2px -2px 0 1px #3A3A3A;
+        box-shadow: inset 2px -2px 0 1px var(--main-color);
         cursor: pointer;
         -moz-transition: box-shadow 0.15s, margin 0.15s;
         -o-transition: box-shadow 0.15s, margin 0.15s;
@@ -225,7 +228,7 @@ class MultiCarousel extends LitElement {
         transition: box-shadow 0.15s, margin 0.15s;
       }
       .csslider > .arrows label:hover {
-        box-shadow: inset 3px -3px 0 2px #71ad37;
+        box-shadow: inset 3px -3px 0 2px var(--hover-arrow-color);
         margin: 0 0px;
       }
       .csslider > .arrows label:before {
@@ -235,6 +238,9 @@ class MultiCarousel extends LitElement {
         left: -100%;
         height: 300%;
         width: 300%;
+      }
+      .noshow { 
+        visibility: hidden;
       }
       
       @font-face {
@@ -255,10 +261,7 @@ class MultiCarousel extends LitElement {
         font-weight: 700;
         src: local('Raleway Bold'), local('Raleway-Bold'), url(https://fonts.gstatic.com/s/raleway/v13/1Ptrg8zYS_SKggPNwJYtWqZPBQ.ttf) format('truetype');
       }
-      * {
-        margin: 0;
-        padding: 0;
-      }
+
       ::-webkit-scrollbar {
         width: 2px;
         background: rgba(255, 255, 255, 0.1);
@@ -273,15 +276,6 @@ class MultiCarousel extends LitElement {
       ol {
         padding-left: 40px;
       }
-      h1 {
-        font-weight: 700;
-        font-size: 310%;
-      }
-      h2 {
-        font-weight: 400;
-        font-size: 120%;
-        color: #71AD37;
-      }
       #theslider {
         font-family: 'Lato';
       }
@@ -292,38 +286,7 @@ class MultiCarousel extends LitElement {
         line-height: 140%;
         font-size: 120%;
       }
-      a.nice-link {
-        position: relative;
-        color: #71ad37;
-      }
-      h1 a.nice-link:after {
-        border-bottom: 1px solid #a5ff0e;
-      }
-      a.nice-link:after {
-        text-align: justify;
-        display: inline-block;
-        content: attr(data-text);
-        position: absolute;
-        left: 0;
-        top: 0;
-        white-space: nowrap;
-        overflow: hidden;
-        color: #a5ff0e;
-        min-height: 100%;
-        width: 0;
-        max-width: 100%;
-        background: #3A3A3A;
-        -moz-transition: 0.3s;
-        -o-transition: 0.3s;
-        -webkit-transition: 0.3s;
-        transition: 0.3s;
-      }
-      a.nice-link:hover {
-        color: #71ad37;
-      }
-      a.nice-link:hover:after {
-        width: 100%;
-      }
+           
       @-webkit-keyframes sign-anim {
         to {
           background-position: 0 -7140px;
@@ -351,19 +314,35 @@ class MultiCarousel extends LitElement {
           slide: slideChecked
         }
       });
-      console.log('dispatch event', this.id, event);
       document.dispatchEvent(event);
     }
   }
 
   nextslide(ev) {
     let masterId = ev.detail.masterid;
-    console.log(masterId);
     if (masterId === this.masterId) {
       let slide = ev.detail.slide;
-      console.log('recogido event');
-      this.shadowRoot.querySelector('label[for="slides_'+slide+'"]').click();
+      this.shadowRoot.querySelector('label[for="slides_' + slide + '"]').click();
     }
+  }
+
+  getArrows() {
+    let arrowClass = (this.masterId !== '') ? 'noshow' : '';
+    let arrows = html`<div class="arrows">
+      ${this.opArr.map(val => html`<label class="${arrowClass}" for="slides_${val}" @click="${this.gotonav}"></label>` )}
+      <label class="goto-first ${arrowClass}" for="slides_1" @click="${this.gotonav}"></label>
+      <label class="goto-last ${arrowClass}" for="slides_${this.numslides - 1}" @click="${this.gotonav}"></label>
+    </div>`;
+    return arrows;
+  }
+
+  getNav() {
+    let nav = html`<div class="navigation"> 
+      <div>
+        ${this.opArr.map(val => html`<label for="slides_${val}" @click="${this.gotonav}"></label>` )}
+      </div>
+    </div>`;
+    return (this.masterId !== '') ? '' : nav;
   }
 
   render() {
@@ -388,16 +367,9 @@ class MultiCarousel extends LitElement {
         <ul>
           ${this.opArr.map(val => html`<li>${this.arrayContent[val - 1]}</li>` )}
         </ul>
-        <div class="arrows">
-          ${this.opArr.map(val => html`<label for="slides_${val}" @click="${this.gotonav}"></label>` )}
-          <label class="goto-first" for="slides_1" @click="${this.gotonav}"></label>
-          <label class="goto-last" for="slides_${this.numslides-1}" @click="${this.gotonav}"></label>
-        </div>
-        <div class="navigation"> 
-          <div>
-            ${this.opArr.map(val => html`<label for="slides_${val}" @click="${this.gotonav}"></label>` )}
-          </div>
-        </div>
+        
+        ${this.getArrows()}
+        ${this.getNav()}
       </div>
     `;
   }

@@ -21,7 +21,7 @@ class MultiCarousel extends LitElement {
       arrayContent: { type: Array },
       master: { type: Boolean },
       masterId: { type: String, attribute: 'master-id' },
-      slideChecked: { type: Number }
+      slideChecked: { type: Number, attribute: 'slide-checked-number' }
     };
   }
 
@@ -29,6 +29,7 @@ class MultiCarousel extends LitElement {
     super();
     this.master = false;
     this.masterId = '';
+    this.slideChecked = 1;
   }
 
   connectedCallback() {

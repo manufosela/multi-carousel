@@ -6,6 +6,11 @@
     <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1, user-scalable=yes">
     <script type="module" src="../multi-carousel.js"></script>
     <style>
+      .centered {
+        width:100%;
+        text-align:center;
+        margin:0 auto;
+      }
       .blocks {
         display:flex;
         display-direction:row;
@@ -24,6 +29,18 @@
       }
       .attributes {
         padding-left: 20px;
+      }
+
+      /* REDEFINE WEBCOMPONENT THEME */
+      multi-carousel {
+        display:block;
+        --slides-width: 420px;
+        --slides-height: 420px;
+      }
+      multi-carousel#themaster {
+        --slides-border:5px solid red;
+        --slides-border-radius:50%;
+        --slides-padding: 3em;
       }
     </style>
   </head>
@@ -62,16 +79,18 @@
 
       <multi-carousel master-id="themaster">
         <span>
-          <h1>Esta es la slide 1 del carousel 2</h1>
-          <p>Sólo tiene un H1 y un P</p>
+          <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Amet rerum, nobis natus qui consectetur doloribus minima quam alias et vel dignissimos quisquam ipsam, magni velit ullam earum itaque placeat. Pariatur!</p>
         </span>
         <span>
-          <h2>Esta es la slide 2 del carousel 2</h2>
-          <p>Esta es un poco mas compleja porque además tiene una image</p>
-          <img src="https://images.freeimages.com/images/small-previews/adf/sun-burst-1478549.jpg" />
+          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Harum, facilis. Ipsum veniam enim magni error mollitia sint laboriosam voluptatum maxime? Quo nulla vero, veniam expedita possimus accusantium nam vitae officia.</p>
+          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Harum, facilis. Ipsum veniam enim magni error mollitia sint laboriosam voluptatum maxime? Quo nulla vero, veniam expedita possimus accusantium nam vitae officia.</p>
         </span>
-        <span>Y esta es la slide 3 del carousel 2</span>
-        <span><h1>Y por último la slide 4 del carousel 2</h1></span>
+        <span>
+            <p>Lorem fistrum mamaar a wan hasta luego Lucas ese que llega. De la pradera está la cosa muy malar diodeno caballo blanco caballo negroorl apetecan te voy a borrar el cerito pupita al ataquerl. Está la cosa muy malar la caidita ese pedazo de a wan a wan. Ese pedazo de ese hombree qué dise usteer va usté muy cargadoo a gramenawer está la cosa muy malar. Papaar papaar ese pedazo de no puedor diodeno fistro a gramenawer va usté muy cargadoo tiene musho peligro ese hombree por la gloria de mi madre de la pradera. No puedor se calle ustée jarl ahorarr llevame al sircoo no puedor me cago en tus muelas.</p>
+        </span>
+        <span>
+            <p>Webtwo ipsum disqus edmodo chartly koofers empressr disqus, babblely ifttt prezi mzinga. Palantir bebo zynga woopra, groupon cloudera. Zinch qeyno flickr ngmoco elgg akismet, bitly grockit meebo. Yoono yammer plaxo scribd insala, jajah zlio disqus. Joukuu blyve qeyno wufoo zanga convore, bubbli chegg gsnap. Gooru zimbra plaxo twitter hulu glogster, zoho spock hipmunk. Handango jumo doostang jibjab shopify reddit, kiko chumby empressr. ideeli glogster. Zynga twones odeo jibjab, voki joukuu. Lala whrrl grockit fleck, sclipo vuvox. Wufoo chumby appjet zlio heekya blippy tumblr, voki mzinga movity zappos wesabe. Hulu edmodo heroku elgg, blyve omgpop, voki plaxo. Octopart zanga handango oovoo, reddit palantir.  Appjet etsy scribd, bebo. Zimbra wufoo qeyno voxy, diigo woopra.</p>
+        </span>
       </multi-carousel>
     </div>
   </body>

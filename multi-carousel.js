@@ -41,7 +41,8 @@ class MultiCarousel extends LitElement {
     this.arrayContent = this.children;
     this.numslides = this.arrayContent.length + 1;
     this.opArr = Array.apply(null, {length: this.numslides}).map(Number.call, Number);
-    this.opArr.shift();
+    this.opArr.shift(); //Delete 0 element
+
     this.cssliderStyles = html`${this.opArr.map(val => `.csslider > input:nth-of-type(${val}):checked ~ ul li:first-of-type { margin-left: -${(val - 1) * 100}%; }`).join('\n')}`;
     this.cssliderInputStyles = html`${this.opArr.map(val => `.csslider > input:nth-of-type(${val}):checked ~ .navigation label:nth-of-type(${val}):after`).join(', ')} { opacity: 1; }`;
     this.cssliderInputCheckedStyles = html`.csslider.infinity > input:first-of-type:checked ~ .arrows label.goto-last,
@@ -78,27 +79,31 @@ class MultiCarousel extends LitElement {
   static get styles() {
     return css`
       :host {
-        --main-bg-color: #FFF;
         --main-color: #000;
         --slides-bg-color: #FFF;
+        --slides-border: 10px solid var(--slides-bg-color);
+        --slides-border-radius:0px;
+        --slides-padding: 0;
+        --slides-width: 820px;
+        --slides-height: 420px;
         --hover-arrow-color: #FF0;
 
         height: 100%;
         overflow-x: hidden;
         text-align: center;
         font: 400 100% 'Raleway', 'Lato';
-        background-color: var(--bg-color);
+        background-color: transparent;
         color: var(--main-color);
         padding-bottom: 60px;
       }
       .csslider {
         margin: auto 3em;
+        text-align:center;
         -moz-perspective: 1300px;
         -ms-perspective: 1300px;
         -webkit-perspective: 1300px;
         perspective: 1300px;
         display: inline-block;
-        text-align: left;
         position: relative;
         margin-bottom: 22px;
       }
@@ -107,13 +112,14 @@ class MultiCarousel extends LitElement {
       }
       .csslider > ul {
         position: relative;
-        width: 820px;
-        height: 420px;
+        width: var(--slides-width);
+        height: var(--slides-height);
         z-index: 1;
         font-size: 0;
         line-height: 0;
         background-color: var(--slides-bg-color);
-        border: 10px solid var(--slides-bg-color);
+        border: var(--slides-border);
+        border-radius: var(--slides-border-radius);
         margin: 0 auto;
         padding: 0;
         overflow: hidden;
@@ -127,6 +133,7 @@ class MultiCarousel extends LitElement {
         display: inline-block;
         width: 100%;
         height: 100%;
+        padding: var(--slides-padding);
         overflow: hidden;
         font-size: 15px;
         font-size: initial;
@@ -305,7 +312,15 @@ class MultiCarousel extends LitElement {
     `;
   }
 
-  gotonav(ev) {
+  nextslide(ev) {
+    let masterId = ev.detail.masterid;
+    if (masterId === this.masterId) {
+      let slide = ev.detail.slide;
+      this.shadowRoot.querySelector('label[for="slides_' + slide + '"]').click();
+    }
+  }
+
+  _gotonav(ev) {
     let slideChecked = ev.target.getAttribute('for').split('_')[1];
     if (this.master) {
       let event = new CustomEvent('multicarouselnextslide', {
@@ -318,28 +333,20 @@ class MultiCarousel extends LitElement {
     }
   }
 
-  nextslide(ev) {
-    let masterId = ev.detail.masterid;
-    if (masterId === this.masterId) {
-      let slide = ev.detail.slide;
-      this.shadowRoot.querySelector('label[for="slides_' + slide + '"]').click();
-    }
-  }
-
-  getArrows() {
+  _getArrows() {
     let arrowClass = (this.masterId !== '') ? 'noshow' : '';
     let arrows = html`<div class="arrows">
-      ${this.opArr.map(val => html`<label class="${arrowClass}" for="slides_${val}" @click="${this.gotonav}"></label>` )}
-      <label class="goto-first ${arrowClass}" for="slides_1" @click="${this.gotonav}"></label>
-      <label class="goto-last ${arrowClass}" for="slides_${this.numslides - 1}" @click="${this.gotonav}"></label>
+      ${this.opArr.map(val => html`<label class="${arrowClass}" for="slides_${val}" @click="${this._gotonav}"></label>` )}
+      <label class="goto-first ${arrowClass}" for="slides_1" @click="${this._gotonav}"></label>
+      <label class="goto-last ${arrowClass}" for="slides_${this.numslides - 1}" @click="${this._gotonav}"></label>
     </div>`;
     return arrows;
   }
 
-  getNav() {
+  _getNav() {
     let nav = html`<div class="navigation"> 
       <div>
-        ${this.opArr.map(val => html`<label for="slides_${val}" @click="${this.gotonav}"></label>` )}
+        ${this.opArr.map(val => html`<label for="slides_${val}" @click="${this._gotonav}"></label>` )}
       </div>
     </div>`;
     return (this.masterId !== '') ? '' : nav;
@@ -363,13 +370,12 @@ class MultiCarousel extends LitElement {
     }
     return res;
   })}
-
         <ul>
           ${this.opArr.map(val => html`<li>${this.arrayContent[val - 1]}</li>` )}
         </ul>
         
-        ${this.getArrows()}
-        ${this.getNav()}
+        ${this._getArrows()}
+        ${this._getNav()}
       </div>
     `;
   }

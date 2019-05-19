@@ -21,7 +21,19 @@ Lit-Element web component description
 ```
 -->
 ```html
-<multi-carousel></multi-carousel>
+<multi-carousel>
+  <div>Content of slide 1</div>
+  <div>Content of slide 2</div>
+  <div>Content of slide 3</div>
+  ...
+  <div>Content of slide N</div>
+</multi-carousel>
+
+## Attributes
+
+* master: Attribute type Boolean, indicates that the carousel is a master carousel. It's mandatory to have an id attribute when is true.
+* master-id: Attribute type String, indicates the id of the master carousel },
+* slide-checked-number: Attribute type Number, indicates what is the default slide 
 
 ```
 ## Install the Polymer-CLI

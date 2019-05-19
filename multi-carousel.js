@@ -88,6 +88,7 @@ class MultiCarousel extends LitElement {
         --slides-width: 820px;
         --slides-height: 420px;
         --hover-arrow-color: #FF0;
+        --nav-point-color: #3A3A3A;
 
         height: 100%;
         overflow-x: hidden;
@@ -178,7 +179,7 @@ class MultiCarousel extends LitElement {
         border-radius: 50%;
         margin: 0 4px;
         padding: 4px;
-        background: #3A3A3A;
+        background: var(--nav-point-color);
       }
       .csslider > .navigation label:hover:after {
         opacity: 1;

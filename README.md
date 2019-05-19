@@ -16,22 +16,21 @@ Lit-Element web component description
 
 ### Attributes
 
-* master: Attribute type Boolean, indicates that the carousel is a master carousel. It's mandatory to have an id attribute when is true.
-* master-id: Attribute type String, indicates the id of the master carousel },
-* slide-checked-number: Attribute type Number, indicates what is the default slide 
+* **master**: Attribute type Boolean, indicates that the carousel is a master carousel. It's mandatory to have an id attribute when is true.
+* **master-id**: Attribute type String, indicates the id of the master carousel },
+* **slide-checked-number**: Attribute type Number, indicates what is the default slide 
 
 ### CSS variables
-  --main-color: #000;
-  --slides-bg-color: #FFF;
-  --slides-border: 10px solid var(--slides-bg-color);
-  --slides-border-radius:0px;
-  --slides-padding: 0;
-  --slides-width: 820px;
-  --slides-height: 420px;
-  --hover-arrow-color: #FF0;
-  --nav-point-color: #3A3A3A;
+  * --main-color: #000;
+  * --slides-bg-color: #FFF;
+  * --slides-border: 10px solid var(--slides-bg-color);
+  * --slides-border-radius:0px;
+  * --slides-padding: 0;
+  * --slides-width: 820px;
+  * --slides-height: 420px;
+  * --hover-arrow-color: #FF0;
+  * --nav-point-color: #3A3A3A;
 
-```
 ## Install the Polymer-CLI
 
 First, make sure you have the [Polymer CLI](https://www.npmjs.com/package/polymer-cli) and npm (packaged with [Node.js](https://nodejs.org)) installed. Run `npm install` to install your element's dependencies, then run `polymer serve` to serve your element locally.

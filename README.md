@@ -13,13 +13,13 @@ Lit-Element web component description
   <div>Content of slide N</div>
 </multi-carousel>
 
-### Attributes
+## Attributes
 
 * master: Attribute type Boolean, indicates that the carousel is a master carousel. It's mandatory to have an id attribute when is true.
 * master-id: Attribute type String, indicates the id of the master carousel },
 * slide-checked-number: Attribute type Number, indicates what is the default slide 
 
-### CSS variables
+## CSS variables
   --main-color: #000;
   --slides-bg-color: #FFF;
   --slides-border: 10px solid var(--slides-bg-color);

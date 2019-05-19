@@ -1,7 +1,7 @@
 {
   "name": "@manufosela/multi-carousel",
   "description": "Lit-Element webcomponent multi-carousel",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "main": "multi-carousel.js",
   "repository": {
     "type": "git",

@@ -4,22 +4,6 @@ Lit-Element web component description
 
 ## Demo
 
-```
-<h2>Basic multi-carousel Demo</h2>
-<h3>Demo</h3>
-<multi-carousel></multi-carousel>
-
-```
-<!---
-```
-<custom-element-demo>
-  <template>
-    <link rel="import" href="multi-carousel.html">
-    <next-code-block></next-code-block>
-  </template>
-</custom-element-demo>
-```
--->
 ```html
 <multi-carousel>
   <div>Content of slide 1</div>
@@ -29,11 +13,22 @@ Lit-Element web component description
   <div>Content of slide N</div>
 </multi-carousel>
 
-## Attributes
+### Attributes
 
 * master: Attribute type Boolean, indicates that the carousel is a master carousel. It's mandatory to have an id attribute when is true.
 * master-id: Attribute type String, indicates the id of the master carousel },
 * slide-checked-number: Attribute type Number, indicates what is the default slide 
+
+### CSS variables
+  --main-color: #000;
+  --slides-bg-color: #FFF;
+  --slides-border: 10px solid var(--slides-bg-color);
+  --slides-border-radius:0px;
+  --slides-padding: 0;
+  --slides-width: 820px;
+  --slides-height: 420px;
+  --hover-arrow-color: #FF0;
+  --nav-point-color: #3A3A3A;
 
 ```
 ## Install the Polymer-CLI
@@ -60,7 +55,7 @@ $ npm run build
 Your application is already set up to be tested via [web-component-tester](https://github.com/Polymer/web-component-tester). Run `polymer test` to run your application's test suite locally.
 
 ## Author
-**user**
+manufosela
 
 ## License
 

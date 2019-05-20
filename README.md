@@ -28,6 +28,7 @@ Lit-Element web component description
   * --slides-border: 10px solid var(--slides-bg-color);
   * --slides-border-radius:0px;
   * --slides-padding: 0;
+  * --slides-container-width: 820px;
   * --slides-width: 820px;
   * --slides-height: 420px;
   * --hover-arrow-color: #FF0;

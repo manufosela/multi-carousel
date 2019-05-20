@@ -38,7 +38,98 @@ class MultiCarousel extends LitElement {
 
   connectedCallback() {
     super.connectedCallback();
+// https://codepen.io/thebabydino/pen/LdxVmz/
+    const _C = this.shadowRoot.querySelector('.container'),
+    N = _C.children.length,NF = 30,
+    TFN = {
+      'linear': function (k) {return k;},
+      'ease-in': function (k, e = 1.675) {
+        return Math.pow(k, e);
+      },
+      'ease-out': function (k, e = 1.675) {
+        return 1 - Math.pow(1 - k, e);
+      },
+      'ease-in-out': function (k) {
+        return .5 * (Math.sin((k - .5) * Math.PI) + 1);
+      },
+      'bounce-out': function (k, n = 3, a = 2.75, b = 1.5) {
+        return 1 - Math.pow(1 - k, a) * Math.abs(Math.cos(Math.pow(k, b) * (n + .5) * Math.PI));
+      } };
+    
+    
+    let i = 0,x0 = null,locked = false,w,ini,fin,rID = null,anf;
+    
+    function stopAni() {
+      cancelAnimationFrame(rID);
+      rID = null;
+    };
+    
+    function ani(cf = 0) {
+      _C.style.setProperty('--i', ini + (fin - ini) * TFN['bounce-out'](cf / anf));
+    
+      if (cf === anf) {
+        stopAni();
+        return;
+      }
+    
+      rID = requestAnimationFrame(ani.bind(this, ++cf));
+    };
+    
+    function unify(e) {return e.changedTouches ? e.changedTouches[0] : e;};
+    
+    function lock(e) {
+      x0 = unify(e).clientX;
+      locked = true;
+    };
+    
+    function drag(e) {
+      e.preventDefault();
+    
+      if (locked) {
+        let dx = unify(e).clientX - x0,f = +(dx / w).toFixed(2);
+    
+        _C.style.setProperty('--i', i - f);
+      }
+    };
+    
+    function move(e) {
+      if (locked) {
+        let dx = unify(e).clientX - x0,
+        s = Math.sign(dx),
+        f = +(s * dx / w).toFixed(2);
+    
+        ini = i - s * f;
+    
+        if ((i > 0 || s < 0) && (i < N - 1 || s > 0) && f > .2) {
+          i -= s;
+          f = 1 - f;
+        }
+    
+        fin = i;
+        anf = Math.round(f * NF);
+        ani();
+        x0 = null;
+        locked = false;
+      }
+    };
+    
+    function size() {w = window.innerWidth;};
+    
+    size();
+    _C.style.setProperty('--n', N);
+    
+    addEventListener('resize', size, false);
+    
+    _C.addEventListener('mousedown', lock, false);
+    _C.addEventListener('touchstart', lock, false);
+    
+    _C.addEventListener('mousemove', drag, false);
+    _C.addEventListener('touchmove', drag, false);
+    
+    _C.addEventListener('mouseup', move, false);
+    _C.addEventListener('touchend', move, false);
 
+/*
     if (this.masterId !== '') {
       document.addEventListener('multicarouselnextslide', this.nextslide.bind(this));
     }
@@ -74,6 +165,7 @@ class MultiCarousel extends LitElement {
       transform: rotate(225deg);
     }`;
     this.htmlInputs = `${this.opArr.map(val => html`<input type="radio" name="slides" id="slides_${val}"/>`)}`;
+*/
   }
 
   disconnectedCallback() {
@@ -89,10 +181,33 @@ class MultiCarousel extends LitElement {
         --slides-border: 10px solid var(--slides-bg-color);
         --slides-border-radius:0px;
         --slides-padding: 0;
+        --slides-container-width: 820px;
         --slides-width: 820px;
         --slides-height: 420px;
         --hover-arrow-color: #FF0;
         --nav-point-color: #3A3A3A;
+
+        overflow-x: hidden;
+      }
+
+      .container {
+        --n: 1;
+        display: flex;
+        align-items: center;
+        overflow-y: hidden;
+        width: 100%;
+        width: calc(var(--n)*100%);
+        height: 50vw;
+        max-height: 100vh;
+        transform: translate(calc(var(--i, 0)/var(--n)*-100%));
+      }
+      .container img {
+        width: 100%;
+        width: calc(100%/var(--n));
+        user-select: none;
+        pointer-events: none;
+      }
+/*
 
         height: 100%;
         overflow-x: hidden;
@@ -103,6 +218,7 @@ class MultiCarousel extends LitElement {
         padding-bottom: 60px;
       }
       .csslider {
+        width: var(--slides-container-width);
         margin: auto 3em;
         text-align:center;
         -moz-perspective: 1300px;
@@ -315,6 +431,7 @@ class MultiCarousel extends LitElement {
           background-position: 0 -7140px;
         }
       }
+      */
     `;
   }
 
@@ -376,9 +493,9 @@ class MultiCarousel extends LitElement {
     }
     return res;
   })}
-        <ul>
-          ${this.opArr.map(val => html`<li>${this.arrayContent[val - 1]}</li>` )}
-        </ul>
+        <div class='container'>
+          ${this.opArr.map(val => html`<span>${this.arrayContent[val - 1]}</span>`)}
+        </div>
         
         ${this.noArrows ? '' : this._getArrows()}
         ${this.noNavigation ? '' : this._getNav()}

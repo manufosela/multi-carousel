@@ -18,7 +18,9 @@ Lit-Element web component description
 
 * **master**: Attribute type Boolean, indicates that the carousel is a master carousel. It's mandatory to have an id attribute when is true.
 * **master-id**: Attribute type String, indicates the id of the master carousel },
-* **slide-checked-number**: Attribute type Number, indicates what is the default slide 
+* **slide-checked-number**: Attribute type Number, indicates what is the default slide
+* **no-nav**: Attribute type Boolean, indicates hide navigation dots.
+* **no-arrows**: Attribute type Boolean, indicates hide navigation arrows.
 
 ### CSS variables
   * --main-color: #000;

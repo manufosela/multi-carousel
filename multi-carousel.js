@@ -21,7 +21,9 @@ class MultiCarousel extends LitElement {
       arrayContent: { type: Array },
       master: { type: Boolean },
       masterId: { type: String, attribute: 'master-id' },
-      slideChecked: { type: Number, attribute: 'slide-checked-number' }
+      slideChecked: { type: Number, attribute: 'slide-checked-number' },
+      noNavigation: { type: Boolean, attribute: 'no-arrows' },
+      noArrows: { type: Boolean, attribute: 'no-nav' }
     };
   }
 
@@ -30,6 +32,8 @@ class MultiCarousel extends LitElement {
     this.master = false;
     this.masterId = '';
     this.slideChecked = 1;
+    this.noArrows = false;
+    this.noNavigation = false;
   }
 
   connectedCallback() {
@@ -335,7 +339,7 @@ class MultiCarousel extends LitElement {
     }
   }
 
-  _getArrows() {
+  _getNav() {
     let arrowClass = (this.masterId !== '') ? 'noshow' : '';
     let arrows = html`<div class="arrows">
       ${this.opArr.map(val => html`<label class="${arrowClass}" for="slides_${val}" @click="${this._gotonav}"></label>` )}
@@ -345,7 +349,7 @@ class MultiCarousel extends LitElement {
     return arrows;
   }
 
-  _getNav() {
+  _getArrows() {
     let nav = html`<div class="navigation"> 
       <div>
         ${this.opArr.map(val => html`<label for="slides_${val}" @click="${this._gotonav}"></label>` )}
@@ -376,8 +380,8 @@ class MultiCarousel extends LitElement {
           ${this.opArr.map(val => html`<li>${this.arrayContent[val - 1]}</li>` )}
         </ul>
         
-        ${this._getArrows()}
-        ${this._getNav()}
+        ${this.noArrows ? '' : this._getArrows()}
+        ${this.noNavigation ? '' : this._getNav()}
       </div>
     `;
   }

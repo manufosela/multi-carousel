@@ -1,22 +1,22 @@
 {
   "name": "@manufosela/multi-carousel",
   "description": "Lit-Element webcomponent multi-carousel",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "main": "multi-carousel.js",
   "repository": {
     "type": "git",
-    "url": "https://github.com/user/multi-carousel"
+    "url": "https://github.com/manufosela/multi-carousel"
   },
-  "author": "user",
+  "author": "manufosela",
   "license": "Apache 2.0",
   "keywords": [
     "webcomponent",
     "lit-element"
   ],
   "bugs": {
-    "url": "https://github.com/user/multi-carousel/issues"
+    "url": "https://github.com/manufosela/multi-carousel/issues"
   },
-  "homepage": "https://github.com/user/multi-carousel",
+  "homepage": "https://github.com/manufosela/multi-carousel",
   "dependencies": {
     "lit-element": "^2.1.0"
   },

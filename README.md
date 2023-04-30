@@ -1,68 +1,62 @@
-# multi-carousel
+# \<multi-carousel>
 
-Lit-Element web component description
+This webcomponent follows the [open-wc](https://github.com/open-wc/open-wc) recommendation.
 
-## Demo
+## Installation
+
+```bash
+npm i multi-carousel
+```
+
+## Usage
 
 ```html
-<multi-carousel>
-  <div>Content of slide 1</div>
-  <div>Content of slide 2</div>
-  <div>Content of slide 3</div>
-  ...
-  <div>Content of slide N</div>
-</multi-carousel>
+<script type="module">
+  import 'multi-carousel/multi-carousel.js';
+</script>
+
+<multi-carousel></multi-carousel>
 ```
 
-### Attributes
+## Linting and formatting
 
-* **master**: Attribute type Boolean, indicates that the carousel is a master carousel. It's mandatory to have an id attribute when is true.
-* **master-id**: Attribute type String, indicates the id of the master carousel },
-* **slide-checked-number**: Attribute type Number, indicates what is the default slide
-* **no-nav**: Attribute type Boolean, indicates hide navigation dots.
-* **no-arrows**: Attribute type Boolean, indicates hide navigation arrows.
+To scan the project for linting and formatting errors, run
 
-### CSS variables
-  * --main-color: #000;
-  * --slides-bg-color: #FFF;
-  * --slides-border: 10px solid var(--slides-bg-color);
-  * --slides-border-radius:0px;
-  * --slides-padding: 0;
-  * --slides-width: 820px;
-  * --slides-height: 420px;
-  * --hover-arrow-color: #FF0;
-  * --nav-point-color: #3A3A3A;
-
-## Install the Polymer-CLI
-
-First, make sure you have the [Polymer CLI](https://www.npmjs.com/package/polymer-cli) and npm (packaged with [Node.js](https://nodejs.org)) installed. Run `npm install` to install your element's dependencies, then run `polymer serve` to serve your element locally.
-
-## Viewing Your Element
-
-```
-$ polymer serve
+```bash
+npm run lint
 ```
 
-## Running Tests
+To automatically fix linting and formatting errors, run
 
-```
-$ polymer test
-```
-
-## Build
-```
-$ npm run build
+```bash
+npm run format
 ```
 
-Your application is already set up to be tested via [web-component-tester](https://github.com/Polymer/web-component-tester). Run `polymer test` to run your application's test suite locally.
+## Testing with Web Test Runner
 
-## Author
-manufosela
+To execute a single test run:
 
-## License
+```bash
+npm run test
+```
 
-This project is licensed under the Apache 2.0 License - see the [LICENSE](LICENSE) file for details
+To run the tests in interactive watch mode run:
 
-## Generated
+```bash
+npm run test:watch
+```
 
-**generator-lit-element-base** - *yeoman npm package* - by [@manufosela](https://github.com/manufosela/generator-litelement-webcomponent)
+
+## Tooling configs
+
+For most of the tools, the configuration is in the `package.json` to minimize the amount of files in your project.
+
+If you customize the configuration a lot, you can consider moving them to individual files.
+
+## Local Demo with `web-dev-server`
+
+```bash
+npm start
+```
+
+To run a local development server that serves the basic demo located in `demo/index.html`

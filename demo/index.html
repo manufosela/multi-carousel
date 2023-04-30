@@ -13,12 +13,12 @@
       }
       .blocks {
         display:flex;
-        display-direction:row;
+        flex-direction:row;
         flex-wrap: wrap;
       }
       .block {
         display:flex;
-        display-direction:column;
+        flex-direction:column;
         flex-wrap: wrap;
         white-space: normal;
       }
@@ -38,8 +38,8 @@
         --slides-height: 420px;
       }
       multi-carousel#themaster {
-        --slides-border:5px solid red;
-        --slides-border-radius:50%;
+        --slides-border:0;
+        --slides-border-radius: 0;
         --slides-padding: 3em;
       }
     </style>

@@ -1,11 +1,24 @@
 {
-  "name": "multi-carousel",
+  "name": "@manufosela/multi-carousel",
   "description": "Webcomponent multi-carousel following open-wc recommendations",
   "license": "MIT",
   "author": "multi-carousel",
-  "version": "0.0.0",
-  "main": "index.js",
-  "module": "index.js",
+  "version": "1.0.0",
+  "main": "multi-carousel.js",
+  "module": "multi-carousel.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/manufosela/multi-carousel"
+  },
+  "bugs": {
+    "url": "https://github.com/manufosela/multi-carousel/issues"
+  },
+  "homepage": "https://github.com/manufosela/multi-carousel",
+  "keywords": [
+    "webcomponents",
+    "open-wc",
+    "carousel"
+  ],
   "scripts": {
     "analyze": "cem analyze --litelement",
     "start": "web-dev-server",

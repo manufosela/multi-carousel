@@ -15,7 +15,21 @@ npm i multi-carousel
   import 'multi-carousel/multi-carousel.js';
 </script>
 
-<multi-carousel></multi-carousel>
+<!-- This multi-carousel is the carousel master with buttons -->
+<multi-carousel id="themaster" master>
+  <!-- HTML BLOCK 1 IS SLIDE 1-->
+  <!-- HTML BLOCK 2 IS SLIDE 2-->
+  <!-- HTML BLOCK 3 IS SLIDE 3-->
+  <!-- HTML BLOCK 4 IS SLIDE 4-->
+</multi-carousel>
+
+<!-- This multi-carousel is the subordinate carousel to carousel master, when master changes, this carousel change -->
+<multi-carousel master-id="themaster">
+  <!-- HTML BLOCK 1 IS SLIDE 1-->
+  <!-- HTML BLOCK 2 IS SLIDE 2-->
+  <!-- HTML BLOCK 3 IS SLIDE 3-->
+  <!-- HTML BLOCK 4 IS SLIDE 4-->
+</multi-carousel>
 ```
 
 ## Linting and formatting
